@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .flashcard {
+            width: 500px;
+            height: 400px;
+            perspective: 1000px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front,
+        .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1.4em;
+            color: white;
+        }
+        .flashcard-front {
+            background-color: #ffeb3b; 
+            color: black; 
+        }
+        .flashcard-back {
+            background-color: #2196F3; /* Blue */
+            transform: rotateY(180deg);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .side-images {
+            position: absolute;
+            top: 10%;
+            width: 15%;
+            height: 80%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            overflow: hidden;
+        }
+        .left-images {
+            left: 0;
+        }
+        .right-images {
+            right: 0;
+        }
+        .side-images img {
+            width: 40px; /* Default size */
+            height: auto;
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+        .side-images img:nth-child(even) {
+            transform: scale(1.2) rotate(-5deg);
+        }
+        .side-images img:nth-child(odd) {
+            transform: scale(0.9) rotate(5deg);
+        }
+    </style>
+</head>
+<body>
+		
+	<div class="side-images left-images">
+      <img src="images/side1.jpeg" alt="Image 8">
+      <img src="images/side2.jpeg" alt="Image 7">
+      <img src="images/side3.jpeg" alt="Image 6">
+      <img src="images/side4.jpeg" alt="Image 5">
+      <img src="images/side5.jpeg" alt="Image 4">
+      <img src="images/side6.jpeg" alt="Image 3">
+      <img src="images/side7.jpeg" alt="Image 2">
+      <img src="images/side8.jpeg" alt="Image 1">
+    </div>
+    <div class="side-images right-images">
+    	<img src="images/side8.jpeg" alt="Image 1">
+      	<img src="images/side7.jpeg" alt="Image 2">
+      	<img src="images/side6.jpeg" alt="Image 3">
+      	<img src="images/side5.jpeg" alt="Image 4">
+      	<img src="images/side4.jpeg" alt="Image 5">
+      	<img src="images/side3.jpeg" alt="Image 6">
+      	<img src="images/side2.jpeg" alt="Image 7">
+      	<img src="images/side1.jpeg" alt="Image 8">
+    </div>
+    <h1 align = "center">English and Kazakh Superstitions</h1>
+    <div class="flashcard" id="flashcard">
+        <div class="flashcard-inner">
+            <div class="flashcard-front" id="flashcard-front" align = "center">Hearing an owl’s hoot during the day or seeing one is indication of death or fatality</div>
+            <div class="flashcard-back" id="flashcard-back"align = "center">A visit from a night owl to the house is considered unlucky, but owl considered to be sacred, Kazakh attach its feathers to headwear to protect themselves</div>
+        </div>
+    </div>
+    <button id="next-btn">Next Flashcard</button>
+	
+    <script>
+        // Flashcard data (up to 20 flashcards)
+        const flashcards = [
+            { front: 'Hearing an owl’s hoot during the day or seeing one is indication of death or fatality', back: 'A visit from a night owl to the house is considered unlucky, but owl considered to be sacred, Kazakh attach its feathers to headwear to protect themselves' },
+            { front: 'Family members and friends should give a silver coin to a baby in order to wish them a great and wealthy future', back: 'During the tradition, shildekhana, the newborn was bathed with coins and silver jewelry deposited at the base of the bathtub, signifying innocence and sinlessness. It was considered, silver-infused water was pure and could shield a newborn from harmful entities. ' },
+            { front: 'Unlucky to spill salt ', back: 'Unlucky to spill salt, “Astyn imany - tuz” ' },
+            { front: 'Seven years of bad luck to break a mirror ', back: 'In general, it is unlucky to use a broken thing' },
+            { front: 'If you rock an empty cradle, you will rock a new baby into it soon ', back: 'Rocking an empty cradle means death of a baby ' },
+            { front: 'Front 4', back: 'Back 4' }
+            
+            
+            // Add up to 20 flashcards here
+        ];
+
+        let currentIndex = 0;
+        const flashcardElement = document.getElementById('flashcard');
+        const flashcardFront = document.getElementById('flashcard-front');
+        const flashcardBack = document.getElementById('flashcard-back');
+        const nextButton = document.getElementById('next-btn');
+
+        // Flip flashcard on click
+        flashcardElement.addEventListener('click', () => {
+            flashcardElement.classList.toggle('flipped');
+        });
+
+        // Change to next flashcard
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % flashcards.length;
+            flashcardFront.textContent = flashcards[currentIndex].front;
+            flashcardBack.textContent = flashcards[currentIndex].back;
+            flashcardElement.classList.remove('flipped');
+        });
+    </script>
+</body>
+</html>
