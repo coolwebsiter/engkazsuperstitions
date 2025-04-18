@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Responsive Flashcard Webpage">
-    <title>Flashcard Site</title>
-    <style>
-        body {
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Responsive Flashcard Webpage">
+  <title>Flashcard Site</title>
+  <style>
+    body {
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
@@ -19,14 +19,15 @@
             margin-bottom: 20px;
         }
         .flashcard {
-            width: 400px;
-            height: 300px;
+            width: 500px;
+            height: 500px;
             perspective: 1000px;
             margin-bottom: 20px;
             cursor: pointer;
-	    display: flex;
-	    justify-content: center;
+	    	display: flex;
+	    	justify-content: center;
             align-items: center;
+            flex-direction: column;
         }
         .flashcard-inner {
             position: relative;
@@ -34,6 +35,9 @@
             height: 100%;
             transition: transform 0.6s;
             transform-style: preserve-3d;
+            display: flex;
+  		    flex-direction: column;
+     		justify-content: center;
         }
         .flashcard.flipped .flashcard-inner {
             transform: rotateY(180deg);
@@ -56,11 +60,23 @@
         .flashcard-front {
             background-color: #ffeb3b; 
             color: black; 
+            align-items: center;
         }
         .flashcard-back {
             background-color: #2196F3; /* Blue */
             transform: rotateY(180deg);
+            align-items: center;
         }
+       
+         .flashcard img {
+           max-width: 80%;
+           max-height: 120px;
+           margin-bottom: 10px;
+           border-radius: 8px;
+           object-fit: contain;
+        }
+
+        
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -74,14 +90,6 @@
         button:hover {
             background-color: #45a049;
         }
-        .flashcard-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px;
-            text-align: center;
-        }
-
         .side-images {
             position: absolute;
             top: 10%;
@@ -146,11 +154,10 @@
                 font-size: 14px;
             }
         }
-    </style>
+  </style>
 </head>
 <body>
-		
-	<div class="side-images left-images">
+<div class="side-images left-images">
       <img src="side1.jpeg" alt="Image 8">
       <img src="side2.jpeg" alt="Image 7">
       <img src="side3.jpeg" alt="Image 6">
@@ -170,27 +177,25 @@
       	<img src="side2.jpeg" alt="Image 7">
       	<img src="side1.jpeg" alt="Image 8">
     </div>
-    <h1 align = "center">English and Kazakh Superstitions</h1>
-    <div class="flashcard" id="flashcard">
-      <div class="flashcard-inner">
-          <div class="flashcard-front" align="center">
-              <div class="flashcard-content">
-                  <img id="card-image" src="owl.jpg" alt="Illustration" style="max-height: 150px; margin-bottom: 10px;">
-                  <div id="front-text">Hearing an owl’s hoot during the day or seeing one is indication of death or fatality (English)</div>
-              </div>
-          </div>
-          <div class="flashcard-back" align="center">
-              <div class="flashcard-content">
-                  <img id="card-image-back" src="owl.jpg" alt="Illustration" style="max-height: 150px; margin-bottom: 10px;">
-                  <div id="back-text">A visit from a night owl to the house is considered unlucky...</div>
-             	 </div>
-        	  </div>
-     	 </div>
- 	 </div>
-  	<button id="next-btn">Next Flashcard</button>
+     <h1 align = "center">English and Kazakh Superstitions</h1>
+<div class="flashcard" id="flashcard">
+  <div class="flashcard-inner">
+    <div class="flashcard flashcard-front" id="front">
+      <img id="card-image-front" src="" alt="Illustration">
+      <div id="front-text" align = "center">Front</div>
+      
+    </div>
+    <div class="flashcard flashcard-back" id="back">
+       <img id="card-image-back" src="" alt="Illustration">
+      <div id="back-text" align = "center">Back</div>
+     
+    </div>
+  </div>
+</div>
 
-	
-    <script>
+<button id="next-btn">Next Flashcard</button>
+
+<script>
         // Flashcard data (up to 20 flashcards)
         const flashcards = [
             { front: 'Hearing an owl’s hoot during the day or seeing one is indication of death or fatality (English)', back: 'A visit from a night owl to the house is considered unlucky, but owl considered to be sacred, Kazakh attach its feathers to headwear to protect themselves  (Kazakh) ', image: '1.jpeg' },
@@ -216,29 +221,36 @@
             // Add up to 20 flashcards here
         ];
 
-        let currentIndex = 0;
-        const flashcard = document.getElementById('flashcard');
-        const frontText = document.getElementById('text-front');
-        const backText = document.getElementById('text-back');
-        const frontImg = document.getElementById('img-front');
-        const backImg = document.getElementById('img-back');
-        const nextBtn = document.getElementById('next-btn');
+  let currentIndex = 0;
+  const flashcard = document.getElementById('flashcard');
+  const frontText = document.getElementById('front-text');
+  const backText = document.getElementById('back-text');
+  const frontImg = document.getElementById('card-image-front');
+  const backImg = document.getElementById('card-image-back');
+  const nextBtn = document.getElementById('next-btn');
+  const inner = document.querySelector('.flashcard');
 
-        // Flip on click (mouse or touch)
-        flashcard.addEventListener('click', () => {
-          flashcard.classList.toggle('flipped');
-        });
+  function updateFlashcard(index) {
+    const card = flashcards[index];
+    frontText.textContent = card.front;
+    backText.textContent = card.back;
+    frontImg.src = card.image;
+    backImg.src = card.image;
+    flashcard.classList.remove('flipped');
+  }
 
-        // Next card on button
-        nextBtn.addEventListener('click', () => {
-          index = (index + 1) % flashcards.length;
-          const card = flashcards[index];
-          frontText.textContent = card.front;
-          backText.textContent = card.back;
-          frontImg.src = card.image;
-          backImg.src = card.image;
-          flashcard.classList.remove('flipped');
-        });
-    </script>
+  flashcard.addEventListener('click', () => {
+    flashcard.classList.toggle('flipped');
+  });
+
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % flashcards.length;
+    updateFlashcard(currentIndex);
+  });
+
+  // Initial load
+  updateFlashcard(currentIndex);
+</script>
+
 </body>
 </html>
