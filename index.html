@@ -74,6 +74,14 @@
         button:hover {
             background-color: #45a049;
         }
+        .flashcard-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            text-align: center;
+        }
+
         .side-images {
             position: absolute;
             top: 10%;
@@ -164,56 +172,72 @@
     </div>
     <h1 align = "center">English and Kazakh Superstitions</h1>
     <div class="flashcard" id="flashcard">
-        <div class="flashcard-inner">
-            <div class="flashcard-front" id="flashcard-front" align = "center">Hearing an owl’s hoot during the day or seeing one is indication of death or fatality (English) </div>
-            <div class="flashcard-back" id="flashcard-back"align = "center">A visit from a night owl to the house is considered unlucky, but owl considered to be sacred, Kazakh attach its feathers to headwear to protect themselves (Kazakh)</div>
-        </div>
-    </div>
-    <button id="next-btn">Next Flashcard</button>
+      <div class="flashcard-inner">
+          <div class="flashcard-front" align="center">
+              <div class="flashcard-content">
+                  <img id="card-image" src="owl.jpg" alt="Illustration" style="max-height: 150px; margin-bottom: 10px;">
+                  <div id="front-text">Hearing an owl’s hoot during the day or seeing one is indication of death or fatality (English)</div>
+              </div>
+          </div>
+          <div class="flashcard-back" align="center">
+              <div class="flashcard-content">
+                  <img id="card-image-back" src="owl.jpg" alt="Illustration" style="max-height: 150px; margin-bottom: 10px;">
+                  <div id="back-text">A visit from a night owl to the house is considered unlucky...</div>
+             	 </div>
+        	  </div>
+     	 </div>
+ 	 </div>
+  	<button id="next-btn">Next Flashcard</button>
+
 	
     <script>
         // Flashcard data (up to 20 flashcards)
         const flashcards = [
-            { front: 'Hearing an owl’s hoot during the day or seeing one is indication of death or fatality (English)', back: 'A visit from a night owl to the house is considered unlucky, but owl considered to be sacred, Kazakh attach its feathers to headwear to protect themselves  (Kazakh) ' },
-            { front: 'Family members and friends should give a silver coin to a baby in order to wish them a great and wealthy future (English)', back: 'During the tradition, shildekhana, the newborn was bathed with coins and silver jewelry deposited at the base of the bathtub, signifying innocence and sinlessness. It was considered, silver-infused water was pure and could shield a newborn from harmful entities. (Kazakh)  ' },
-            { front: 'Unlucky to spill salt (English) ', back: 'Unlucky to spill salt, “Astyn imany - tuz” (Kazakh) ' },
-            { front: 'Seven years of bad luck to break a mirror (English)', back: 'In general, it is unlucky to use a broken thing (Kazakh) ' },
-            { front: 'If you rock an empty cradle, you will rock a new baby into it soon (English) ', back: 'Rocking an empty cradle means death of a baby (Kazakh) ' },
-            { front: 'A veil protects a bride from the evil eye, or ever-present evil spirits (English)', back: 'Kazakh people use “shymyldyk”, veil for the same purpose, to protect from the evil eye' }, 
-	    { front: ' Saying “bless you”, when someone sneezes, because their soul might be stolen by devil (English)', back: 'Kazakh people say “Sau bol” or “Zharikimalla”, when someone sneezes' }, 
-	    { front: 'It is a custom for Jewish people to cover mirror if someone died in the house  ', back: 'It is a custom to cover mirror if someone died in the house to protect those living in the house (Kazakh) ' },
-	    { front: ' Whitling at night brings bad luck (English)', back: ' Whistle indoors and bring on poverty (Kazakh) ' },
-	    { front: 'A fool can ask more questions in an hour than a wise man can answer in seven years (English)', back: 'Aila altau, akyl zheteu – cunning is six, mind is seven  ' },
-	    { front: 'The English are not known for having a single name and they typically name their children after their forefathers. Prince William of Loyal dynasty of England named his son George after his great-grandfather, George VI ', back: 'In Kazakh traditions, if family’s firstborn child passed away in infancy, the newly born was given name that was unfavorable (Itemgen (“Fed by dog”)) or, conversely, name that was linked to longevity (Aman (“Be healthy”)). In a family full of girls, newborn girl was named after the boy hoping the next one will be boy (Ulbolsyn (“Let it be a boy”)). A long-awaited child was given a godly name (Kudaibergen (“Given by God”)). ' },
-	    { front: 'The passing through fire was a very common act of idolatry and the heathen believed it preserved them from evil throughout the year (English)', back: 'The fire purification (“Alastau”) ritual is done for protect from illness, evil spirits and the evil eye. Fire is known for having the sacred power (Kazakh) ' },
-	    { front: 'Married in Yellow, ashamed of your fellow (English poem) ', back: 'Yellow color is a sign of illness, yellow says that the disease causes pain, incurable disease (Kazakh)' },
-	    { front: 'Married in Red, you will wish yourself dead (English poem)  ', back: 'Red is worn to protect from the evil eye (Kazakh)' },
-	    { front: 'The enemy has four eyes (English)', back: 'Torteu tugel bolsa tobedegi keledi (if there is unity, there will be joy and celebration; if four is together, what upon us will come) (Kazakh)' },
-	    { front: 'Four-leaf clover—a cloverleaf with 4 leaflets thought to bring good luck (English)', back: 'Number four mostly describe good luck(tort  kubylasy  sai—happy,tort  kozi  tugel–the  family  is safe, everything is fine) (Kazakh) ' },
-	    { front: 'It was considered very unlucky to compliment a child because this could attract the envy of witches and evil spirits (English)', back: 'It was considered to say bad thing about child in order to protect from evil eye(“Til koz tiyu”). (Kazakh)   ' },
-	    { front: 'To sew up on itself clothes – to loss of wealth (English)', back: 'To sew up on itself clothes – bringing death on yourself (only on dead people’s clothes sewed up) (Kazakh) ' }
+            { front: 'Hearing an owl’s hoot during the day or seeing one is indication of death or fatality (English)', back: 'A visit from a night owl to the house is considered unlucky, but owl considered to be sacred, Kazakh attach its feathers to headwear to protect themselves  (Kazakh) ', image: 'owl.jpg' },
+            { front: 'Family members and friends should give a silver coin to a baby in order to wish them a great and wealthy future (English)', back: 'During the tradition, shildekhana, the newborn was bathed with coins and silver jewelry deposited at the base of the bathtub, signifying innocence and sinlessness. It was considered, silver-infused water was pure and could shield a newborn from harmful entities. (Kazakh)  ' , , image: 'owl.jpg'},
+            { front: 'Unlucky to spill salt (English) ', back: 'Unlucky to spill salt, “Astyn imany - tuz” (Kazakh) ' , , image: 'owl.jpg'},
+            { front: 'Seven years of bad luck to break a mirror (English)', back: 'In general, it is unlucky to use a broken thing (Kazakh) ' ,, image: 'owl.jpg'},
+            { front: 'If you rock an empty cradle, you will rock a new baby into it soon (English) ', back: 'Rocking an empty cradle means death of a baby (Kazakh) ', , image: 'owl.jpg' },
+            { front: 'A veil protects a bride from the evil eye, or ever-present evil spirits (English)', back: 'Kazakh people use “shymyldyk”, veil for the same purpose, to protect from the evil eye', , image: 'owl.jpg' }, 
+	    { front: ' Saying “bless you”, when someone sneezes, because their soul might be stolen by devil (English)', back: 'Kazakh people say “Sau bol” or “Zharikimalla”, when someone sneezes', image: 'owl.jpg' }, 
+	    { front: 'It is a custom for Jewish people to cover mirror if someone died in the house  ', back: 'It is a custom to cover mirror if someone died in the house to protect those living in the house (Kazakh) ', image: 'owl.jpg' },
+	    { front: ' Whitling at night brings bad luck (English)', back: ' Whistle indoors and bring on poverty (Kazakh) ', image: 'owl.jpg' },
+	    { front: 'A fool can ask more questions in an hour than a wise man can answer in seven years (English)', back: 'Aila altau, akyl zheteu – cunning is six, mind is seven  ', image: 'owl.jpg' },
+	    { front: 'The English are not known for having a single name and they typically name their children after their forefathers. Prince William of Loyal dynasty of England named his son George after his great-grandfather, George VI ', back: 'In Kazakh traditions, if family’s firstborn child passed away in infancy, the newly born was given name that was unfavorable (Itemgen (“Fed by dog”)) or, conversely, name that was linked to longevity (Aman (“Be healthy”)). In a family full of girls, newborn girl was named after the boy hoping the next one will be boy (Ulbolsyn (“Let it be a boy”)). A long-awaited child was given a godly name (Kudaibergen (“Given by God”)). ', image: 'owl.jpg' },
+	    { front: 'The passing through fire was a very common act of idolatry and the heathen believed it preserved them from evil throughout the year (English)', back: 'The fire purification (“Alastau”) ritual is done for protect from illness, evil spirits and the evil eye. Fire is known for having the sacred power (Kazakh) ' , image: 'owl.jpg'},
+	    { front: 'Married in Yellow, ashamed of your fellow (English poem) ', back: 'Yellow color is a sign of illness, yellow says that the disease causes pain, incurable disease (Kazakh)', image: 'owl.jpg' },
+	    { front: 'Married in Red, you will wish yourself dead (English poem)  ', back: 'Red is worn to protect from the evil eye (Kazakh)', image: 'owl.jpg' },
+	    { front: 'The enemy has four eyes (English)', back: 'Torteu tugel bolsa tobedegi keledi (if there is unity, there will be joy and celebration; if four is together, what upon us will come) (Kazakh)', image: 'owl.jpg' },
+	    { front: 'Four-leaf clover—a cloverleaf with 4 leaflets thought to bring good luck (English)', back: 'Number four mostly describe good luck(tort  kubylasy  sai—happy,tort  kozi  tugel–the  family  is safe, everything is fine) (Kazakh) ' , image: 'owl.jpg'},
+	    { front: 'It was considered very unlucky to compliment a child because this could attract the envy of witches and evil spirits (English)', back: 'It was considered to say bad thing about child in order to protect from evil eye(“Til koz tiyu”). (Kazakh)   ', image: 'owl.jpg' },
+	    { front: 'To sew up on itself clothes – to loss of wealth (English)', back: 'To sew up on itself clothes – bringing death on yourself (only on dead people’s clothes sewed up) (Kazakh) ', image: 'owl.jpg' }
             
             
             // Add up to 20 flashcards here
         ];
 
         let currentIndex = 0;
-        const flashcardElement = document.getElementById('flashcard');
-        const flashcardFront = document.getElementById('flashcard-front');
-        const flashcardBack = document.getElementById('flashcard-back');
-        const nextButton = document.getElementById('next-btn');
+        const flashcard = document.getElementById('flashcard');
+        const frontText = document.getElementById('text-front');
+        const backText = document.getElementById('text-back');
+        const frontImg = document.getElementById('img-front');
+        const backImg = document.getElementById('img-back');
+        const nextBtn = document.getElementById('next-btn');
 
-        // Flip flashcard on click
-        flashcardElement.addEventListener('click', () => {
-            flashcardElement.classList.toggle('flipped');
+        // Flip on click (mouse or touch)
+        flashcard.addEventListener('click', () => {
+          flashcard.classList.toggle('flipped');
         });
 
-        // Change to next flashcard
-        nextButton.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % flashcards.length;
-            flashcardFront.textContent = flashcards[currentIndex].front;
-            flashcardBack.textContent = flashcards[currentIndex].back;
-            flashcardElement.classList.remove('flipped');
+        // Next card on button
+        nextBtn.addEventListener('click', () => {
+          index = (index + 1) % flashcards.length;
+          const card = flashcards[index];
+          frontText.textContent = card.front;
+          backText.textContent = card.back;
+          frontImg.src = card.image;
+          backImg.src = card.image;
+          flashcard.classList.remove('flipped');
         });
     </script>
 </body>
